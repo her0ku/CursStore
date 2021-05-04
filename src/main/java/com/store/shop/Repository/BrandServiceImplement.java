@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BrandRepositoyImplement implements BrandRepository {
+public class BrandServiceImplement implements BrandService {
 
     @Autowired
     private BrandDAO brandDAO;

@@ -4,7 +4,7 @@ import com.store.shop.Entity.Brand;
 
 import java.util.List;
 
-public interface BrandRepository {
+public interface BrandService {
     void addBrand(Brand brand);
     List<Brand> findAllBrands();
 }

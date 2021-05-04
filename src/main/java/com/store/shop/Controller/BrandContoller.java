@@ -1,7 +1,8 @@
 package com.store.shop.Controller;
 
 import com.store.shop.Entity.Brand;
-import com.store.shop.Repository.BrandRepositoyImplement;
+import com.store.shop.Repository.BrandService;
+import com.store.shop.Repository.BrandServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import java.util.List;
 public class BrandContoller {
 
     @Autowired
-    private BrandRepositoyImplement brandRepositoyImplement;
+    private BrandService brandService;
 
     @GetMapping("/addBrand")
     public String showBrand(Model model)
@@ -27,14 +28,14 @@ public class BrandContoller {
     @PostMapping("/addBrand")
     public String showBrand(Model model, @ModelAttribute Brand brand)
     {
-        brandRepositoyImplement.addBrand(brand);
+        brandService.addBrand(brand);
         model.addAttribute("brand", new Brand());
         return "addBrand";
     }
 
     @GetMapping("/allBrands")
     public String AllBrands(Model model){
-        List<Brand> brands = brandRepositoyImplement.findAllBrands();
+        List<Brand> brands = brandService.findAllBrands();
         model.addAttribute("brands", brands);
         return "allBrands";
     }
