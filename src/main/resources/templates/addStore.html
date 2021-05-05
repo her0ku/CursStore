@@ -1,21 +1,21 @@
-<html xmlns:th="http://thymyleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Добавление продукта</title>
+        <title>addstore</title>
 <style>
-@keyframes fade 
-{
+@keyframes fade {
   0%,100% { opacity: 0 }
   50% { opacity: 1 }
 }
+
+
 body {
   background: #2f313d;
   color: rgb(13, 13, 13);
   font-family: sans-serif;
 }
 
-h1 
-{
+h1 {
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -29,9 +29,6 @@ a {
 }
 
 .form {
- opacity: 1;
-  animation: fade 2s linear;
-  position: absolute;
   width: 250px;
   position: absolute;
   top: 50%;
@@ -39,6 +36,8 @@ a {
   margin: -184px 0px 0px -155px;
   background: rgba(0,0,0,0.2);
   padding: 20px 30px;
+    animation: fade 2s linear;
+  position: absolute;
   border-radius: 5px;
   box-shadow: 0px 1px 0px rgba(0,0,0,0.3),inset 0px 1px 0px rgba(255,255,255,0.07)
 }
@@ -93,17 +92,13 @@ placeholder {
    
    <div class='form'>
         
-    <h1>Product Page</h1>
+    <h1>Добавить Магазин</h1>
 
-<form method="post" th:action="@{/addProduct}" th:object="${product}" enctype="multipart/form-data">
-  <input placeholder="Имя продукта" type="text"  th:field="*{name}"/>
-  <input placeholder="Цена" type="text" th:field="*{price}"/>
-  <input placeholder="Категория" type="text" th:field="*{category}"/>
-    <input placeholder="Описание" type="text" th:field="*{annotation}"/>
-  <input placeholder="Локация" type="text" th:field="*{Location}"/>
-    <input placeholder="Количество" type="text" th:field="*{amout}"/>
-    <input type="file" name="image" id="image" th:field="*{image}"/>
-  <input type='submit' value='Добавить продукт'/></input>
+<form method="post" th:action="@{/addStore}" th:object="${store}">        
+  <input placeholder="Имя поставщика"     type="text" th:field="*{name}"/>
+  <input placeholder="Тип"     type="text" th:field="*{type}"/>
+  <input placeholder="Локация поставщика" type="text" th:field="*{location}"/>
+  <input type='submit' value='Добавить'/>
 </form>        
 
         

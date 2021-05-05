@@ -1,21 +1,22 @@
-<html xmlns:th="http://thymyleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Добавление продукта</title>
+    
+<title>Sign Up</title>
+<link rel="stylesheet" href="style.css">
+<script src="validation.js"></script>
 <style>
-@keyframes fade 
-{
-  0%,100% { opacity: 0 }
-  50% { opacity: 1 }
-}
+
 body {
   background: #2f313d;
   color: rgb(13, 13, 13);
   font-family: sans-serif;
 }
-
-h1 
-{
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+h1 {
   color: white;
   font-size: 15px;
   font-weight: 600;
@@ -29,10 +30,10 @@ a {
 }
 
 .form {
- opacity: 1;
+  width: 250px;
+   opacity: 1;
   animation: fade 2s linear;
   position: absolute;
-  width: 250px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -93,20 +94,16 @@ placeholder {
    
    <div class='form'>
         
-    <h1>Product Page</h1>
+    <h1>Форма регистрации</h1>
 
-<form method="post" th:action="@{/addProduct}" th:object="${product}" enctype="multipart/form-data">
-  <input placeholder="Имя продукта" type="text"  th:field="*{name}"/>
-  <input placeholder="Цена" type="text" th:field="*{price}"/>
-  <input placeholder="Категория" type="text" th:field="*{category}"/>
-    <input placeholder="Описание" type="text" th:field="*{annotation}"/>
-  <input placeholder="Локация" type="text" th:field="*{Location}"/>
-    <input placeholder="Количество" type="text" th:field="*{amout}"/>
-    <input type="file" name="image" id="image" th:field="*{image}"/>
-  <input type='submit' value='Добавить продукт'/></input>
-</form>        
-
-        
+<form name="userform" method="post" th:action="@{/signUp}" th:object="${user}">
+    <input placeholder="Имя пользователя" type="text" th:field="*{usrename}" >
+    <input placeholder="Пароль" type="password" th:field="*{password}" >
+    <input placeholder="Почта" type="text" th:field="*{Email}" >
+    <input placeholder="Номер Телефона" type="text" th:field="*{Mobile}" >
+    <input  placeholder="buyer or storeowner or admin"  type="text" th:field="*{Type}" >
+    <input type="submit" value="Регистрация"><br/>
+</form>
 </div>
     
 </body>

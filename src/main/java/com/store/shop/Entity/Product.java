@@ -1,9 +1,8 @@
 package com.store.shop.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+
 
 @Entity
 public class Product
@@ -16,7 +15,27 @@ public class Product
     private Integer price;
     private String Location;
     private Integer amout;
+    private String annotation;
+    @Column(name = "image")
+    private String image;
     private Integer deleted;
+
+
+    public Product() {
+    }
+    public Product(Integer id,String name, String category, Integer price, String location, Integer amout, String annotation, String image) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.Location = location;
+        this.deleted=0;
+        this.amout = amout;
+        this.annotation = annotation;
+        this.image = image;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -59,19 +78,24 @@ public class Product
     public void setAmout(Integer amout) {
         this.amout = amout;
     }
-    public Product() {
+
+    public String getImage() {
+        return image;
     }
-    public Product(Integer id,String name, String category, Integer price, String location, Integer amout) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.price = price;
-        this.Location = location;
-        this.deleted=0;
-        this.amout = amout;
+
+    public void setImage(String image) {
+        this.image = image;
     }
-    public int sum(int x,int y) {
+
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
+    }
+
+    public int sum(int x, int y) {
         return x+y;
     }
 
@@ -84,6 +108,8 @@ public class Product
                 ", price=" + price +
                 ", Location='" + Location + '\'' +
                 ", amout=" + amout +
+                ", annotation='" + annotation + '\'' +
+                ", image=" + image +
                 ", deleted=" + deleted +
                 '}';
     }

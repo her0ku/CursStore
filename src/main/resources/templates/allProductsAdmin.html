@@ -1,0 +1,73 @@
+<!doctype html>
+<html xmlns:th="http://thymyleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Вся продукция</title>
+<style>
+@charset "utf-8";
+/* CSS Document */
+table.Table {
+    font-family: "Roboto Medium", Gadget;
+    border: 2px solid #ffffff;
+    background-color: #ffffff;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    border-collapse: collapse;
+}
+table.Table td, table.Table th {
+    border: 1px solid #ffffff;
+    padding: 3px 2px;
+}
+table.Table tbody td {
+    font-size: 14px;
+    color: #000000;
+}
+table.Table tr:nth-child(even) {
+    background: #597bf8;
+}
+table.Table thead {
+    background: #597bf8;
+    border-bottom: 3px solid #ffffff;
+}
+table.Table thead th {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    border-left: 2px solid #ffffff;
+}
+table.Table thead th:first-child {
+    border-left: none;
+}
+
+</style>
+</head>
+
+<body>
+	
+<table class="Table">
+<thead>
+<tr>
+<th>Название</th>
+<th>Цена</th>
+<th>Категория</th>
+<th>Производитель</th>
+<th>Количество товара</th>
+</tr>
+</thead>
+
+     <tr th:each="product : ${products}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.category}"></td>
+        <td th:text="${product.Location}"></td>
+        <td th:text="${product.amout}"></td>
+    </tr>
+</table>
+
+</body>
+	
+	
+</html>
+
