@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -74,4 +75,19 @@ public class ProductController {
         model.addAttribute("products", products);
         return "allProducts";
     }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable(name = "id") Integer id){
+        productService.deleteProductById(id);
+        return "redirect:/allProductsAdmin";
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView editItem(@PathVariable(name = "id") Integer id) {
+        ModelAndView mav = new ModelAndView("showProductCard");
+        Product product = productService.findProductById(id);
+        mav.addObject("product", product);
+        return mav;
+    }
+
 }

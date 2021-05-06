@@ -24,10 +24,10 @@ table.Table tbody td {
     color: #000000;
 }
 table.Table tr:nth-child(even) {
-    background: #597bf8;
+    background: #93a9ff;
 }
 table.Table thead {
-    background: #597bf8;
+    background: #93a9ff;
     border-bottom: 3px solid #ffffff;
 }
 table.Table thead th {
@@ -54,15 +54,20 @@ table.Table thead th:first-child {
 <th>Категория</th>
 <th>Производитель</th>
 <th>Количество товара</th>
+<th>Редактирование</th>
+<th>Удаление</th>
 </tr>
 </thead>
 
      <tr th:each="product : ${products}">
+        <td style="display:none;" th:text="${product.id}"></td>
         <td th:text="${product.name}"></td>
         <td th:text="${product.price}"></td>
         <td th:text="${product.category}"></td>
         <td th:text="${product.Location}"></td>
         <td th:text="${product.amout}"></td>
+         <td><a th:href="@{'/edit/' + ${product.id}}">Редактировать</a></td>
+         <td><a th:href="@{'/delete/' + ${product.id}}">Удалить</a></td>
     </tr>
 </table>
 
