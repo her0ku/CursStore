@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <title>Вся продукция</title>
 <style>
-@charset "utf-8";
 /* CSS Document */
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap');
 
@@ -156,10 +155,8 @@ p{
     justify-content: center;
 }
 </style>
-</head>
-
 <body>
-    <div class="wrapper" th:each="product : ${products}">
+<div class="wrapper" th:each="product : ${products}">
         <div class="card">
             <div class="product-left">
                 <div class="header">

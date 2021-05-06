@@ -4,6 +4,8 @@ import com.store.shop.Entity.Product;
 import com.store.shop.Repository.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -34,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public String AddProduct(Model model, @RequestParam("image") MultipartFile file, @RequestParam("name") String name,
+    public String AddProduct(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
                              @RequestParam("price") Integer price, @RequestParam("category") String category,
                              @RequestParam("annotation") String annotation, @RequestParam("Location") String location,
                              @RequestParam("amout") Integer amout) throws IOException {
@@ -45,7 +47,7 @@ public class ProductController {
         product.setAmout(amout);
         product.setCategory(category);
         product.setLocation(location);
-        if(!file.isEmpty())
+        if(!file.isEmpty() && file.getSize() != 0)
         {
             File uploadDir = new File(uploadPath + "\\" + product.getName() + "\\");
             if(!uploadDir.exists()){
@@ -54,10 +56,11 @@ public class ProductController {
             String result = file.getOriginalFilename();
             file.transferTo(new File(uploadDir + "/" + result));
             product.setImage(result);
+        } else {
+            product.setImage(product.getImage());
         }
         productService.productSave(product);
-        model.addAttribute("product", new Product());
-        return "addProduct";
+        return "redirect:/allProductsAdmin";
     }
 
     @GetMapping("/allProductsAdmin")
@@ -90,4 +93,33 @@ public class ProductController {
         return mav;
     }
 
+    @PostMapping("/edit/{id}")
+    public String AddProduct(@PathVariable("id") Integer id, @RequestParam("name") String name,
+            @RequestParam("image") MultipartFile file, @RequestParam("price") Integer price, @RequestParam("category") String category,
+                             @RequestParam("annotation") String annotation, @RequestParam("Location") String location,
+                             @RequestParam("amout") Integer amout) throws IOException {
+        System.out.println("ID - " + id);
+        Product product = productService.findProductById(id);
+
+        System.out.println("\nObject - now" + product);
+        if(!file.isEmpty())
+        {
+            File uploadDir = new File(uploadPath + "\\" + product.getName() + "\\");
+            if(!uploadDir.exists()){
+                uploadDir.mkdirs();
+            }
+            String result = file.getOriginalFilename();
+            file.transferTo(new File(uploadDir + "/" + result));
+            product.setImage(result);
+        }
+        product.setName(name);
+        product.setPrice(price);
+        product.setAnnotation(annotation);
+        product.setAmout(amout);
+        product.setCategory(category);
+        product.setLocation(location);
+        System.out.println("\nObject - PAST" + product);
+        productService.productSave(product);
+        return "redirect:/allProductsAdmin";
+    }
 }

@@ -2,111 +2,68 @@
 
 <head>
     <title>Добавление продукта</title>
-<style>
-@keyframes fade 
-{
-  0%,100% { opacity: 0 }
-  50% { opacity: 1 }
-}
-body {
-  background: #2f313d;
-  color: rgb(13, 13, 13);
-  font-family: sans-serif;
-}
-
-h1 
-{
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-a {
-  color: #46485c;
-  text-decoration: none;
-}
-
-.form {
- opacity: 1;
-  animation: fade 2s linear;
-  position: absolute;
-  width: 250px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -184px 0px 0px -155px;
-  background: rgba(0,0,0,0.2);
-  padding: 20px 30px;
-  border-radius: 5px;
-  box-shadow: 0px 1px 0px rgba(0,0,0,0.3),inset 0px 1px 0px rgba(255,255,255,0.07)
-}
-
-input[type="text"],input[type="email"],input[type="password"] {
-  width: 250px;
-  padding: 25px 0px;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  outline: none;
-  color: #FFFFFF;
-}
-
-input[type="submit"] {
-  background-color: rgb(26, 26, 26);
-  border: 0;
-  width: 250px;
-  height: 40px;
-  border-radius: 3px;
-    margin-top: 20px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-input[type="submit"]:hover {
-  background-color: white;
-    color:  rgb(26, 26, 26);
-}
-
-
-
-placeholder {
-  color: #46485c;
- transition: all 0.2s linear;
-  transform: translate(10px, 0);
-  opacity: 0;
-}
-
-[placeholder]:focus::-webkit-input-placeholder {
-  transition: all 0.2s linear;
-  transform: translate(10px, 0);
-  opacity: 0;
-}
-</style>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 
 
 <body>
-    
-   
-   <div class='form'>
-        
-    <h1>Product Page</h1>
-
+<div class="container">
+       <section class="panel panel-default">
+           <div class="panel-heading">
+               <h2 class="panel-title">Форма добавления товара</h2>
+           </div>
+           <div class="panel-body">
 <form method="post" th:action="@{/addProduct}" th:object="${product}" enctype="multipart/form-data">
-  <input placeholder="Имя продукта" type="text"  th:field="*{name}"/>
-  <input placeholder="Цена" type="text" th:field="*{price}"/>
-  <input placeholder="Категория" type="text" th:field="*{category}"/>
-    <input placeholder="Описание" type="text" th:field="*{annotation}"/>
-  <input placeholder="Локация" type="text" th:field="*{Location}"/>
-    <input placeholder="Количество" type="text" th:field="*{amout}"/>
-    <input type="file" name="image" id="image" th:field="*{image}"/>
-  <input type='submit' value='Добавить продукт'/></input>
-</form>        
-
-        
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Название продукта</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="name" id="name" placeholder="Пример: Gucci" th:field="*{name}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Цена ₽</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="price" id="price" placeholder="Пример: 20000" th:field="*{price}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Категория</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" name="category" id="category" placeholder="Пример: Линзы" th:field="*{category}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Описание товара</label>
+        <div class="col-sm-9">
+            <textarea type="text" class="form-control" name="annotation" id="annotation" placeholder="Пример: Тут текст" th:field="*{annotation}"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Лоакция</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="Location" id="Location" placeholder="Россия" th:field="*{Location}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Лоакция</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="amout" id="amout" placeholder="11" th:field="*{amout}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name" class="col-sm-3 control-label">Загрузить фото продукта</label>
+        <div class="col-sm-3">
+            <label class="control-label small">Картинка (jpg/png):</label> <input th:field="*{image}" id="image" type="file" name="image">
+        </div>
+    </div> <br><br>
+    <div class="col-sm-offset-3 col-sm-9">
+        <button type="submit" class="btn btn-primary">Добавить продукт</button>
+    </div>
+</form>
+           </div>
+       </section>
 </div>
     
 </body>
