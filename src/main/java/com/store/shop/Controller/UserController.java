@@ -8,9 +8,7 @@ import com.store.shop.Repository.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,15 +31,27 @@ public class UserController {
     @PostMapping("/signUp")
     public String addUser(Model model, @ModelAttribute User user)
     {
-        if(user.getType().equals("buyer"))
-        {
             userService.addUser(user);
             List<Product> products = productService.showAllProducts();
             model.addAttribute("products", products);
             return "allProducts";
+    }
+
+    @GetMapping("/login")
+    public String signIn (Model model)
+    {
+        model.addAttribute("user",new User());
+        return "Login";
+    }
+
+    @PostMapping("/login")
+    public String signIn (Model model, @ModelAttribute User u)
+    {
+        User user = userService.findUserByUsrename(u.getUsrename());
+        if(user != null){
+            return "redirect:/allProducts";
         }
-        else {
-            return "signUp";
-        }
+        else
+            return "Login";
     }
 }

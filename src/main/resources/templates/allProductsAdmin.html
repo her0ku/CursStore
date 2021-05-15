@@ -31,7 +31,7 @@
      <tr th:each="product : ${products}">
         <td style="display:none;" th:text="${product.id}"></td>
         <td scope="row" th:text="${product.name}"></td>
-        <td th:text="${product.price}"></td>
+        <td th:text="${product.price} + ' ₽'"></td>
         <td th:text="${product.category}"></td>
         <td th:text="${product.Location}"></td>
         <td th:text="${product.amout}"></td>

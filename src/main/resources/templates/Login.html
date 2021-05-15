@@ -1,11 +1,15 @@
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
     
- <meta http-equiv="Content-Type" content="text/html; charset-UTF-8"/>
-    <title>addBrand</title>
-    <link rel="stylesheet" href="style.css">
+<title>Login Page</title>
+<link rel="stylesheet" href="style.css">
+<script src="validation.js"></script>
 <style>
+
+p {
+
+}
 
 body {
   background: #2f313d;
@@ -20,27 +24,28 @@ h1 {
   text-align: center;
   margin-bottom: 10px;
 }
-@keyframes fade {
-  0%,100% { opacity: 0 }
-  50% { opacity: 1 }
-}
 a {
   color: #46485c;
   text-decoration: none;
 }
-
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
 .form {
   width: 250px;
+  opacity: 1;
+  animation: fade 2s linear;
   position: absolute;
   top: 50%;
-    animation: fade 2s linear;
-  position: absolute;
   left: 50%;
+ background-color: black;
   margin: -184px 0px 0px -155px;
   background: rgba(0,0,0,0.2);
   padding: 20px 30px;
   border-radius: 5px;
   box-shadow: 0px 1px 0px rgba(0,0,0,0.3),inset 0px 1px 0px rgba(255,255,255,0.07)
+
 }
 
 input[type="text"],input[type="email"],input[type="password"] {
@@ -59,7 +64,7 @@ input[type="submit"] {
   width: 250px;
   height: 40px;
   border-radius: 3px;
-    margin-top: 20px;
+   margin-top: 20px;
   color: white;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
@@ -93,17 +98,18 @@ placeholder {
    
    <div class='form'>
         
-    <h1>Добавление Бренда</h1>
+    <h1>Login Page</h1>
 
-<form method="post" th:action="@{/addBrand}" th:object="${brand}">        
-  <input placeholder="Имя Бренда" type="text" th:field="*{BrandName}"/>
-  <input placeholder="Категория" type="text" th:field="*{BrandCategory}"/>
-  <input type='submit' id = "myElem" value='Добавить Бренд'/>
-</form>        
 
-        
+<form method="post" th:action="@{/login}" th:object="${user}">
+    <input  placeholder="Enter the Username" type="text" th:field="*{usrename}" > 
+    <input  placeholder="Enter the Password"  type="password" th:field="*{password}" > 
+    <input type="submit" value="Login"><br/>
+</form>
 </div>
     
 </body>
+
+
 
 </html>
