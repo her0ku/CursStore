@@ -31,4 +31,9 @@ public class OrderServiceImplement implements OrderService{
         return orderDAO.findAllByMail(mail);
     }
 
+    @Override
+    public List<Order> findAllUserOrders() {
+        return orderDAO.findAll();
+    }
+
 }

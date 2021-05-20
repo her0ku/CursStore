@@ -1,34 +1,21 @@
 package com.store.shop.Controller;
 
-import com.store.shop.App.AppUser;
+import com.store.shop.Entity.Order;
 import com.store.shop.Entity.Product;
 import com.store.shop.Entity.User;
 import com.store.shop.Repository.AppUserService;
+import com.store.shop.Repository.OrderService;
 import com.store.shop.Repository.ProductService;
-import com.store.shop.Repository.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -43,7 +30,7 @@ public class ProductController {
     private AppUserService appUserService;
 
     @Autowired
-    private UserService userService;
+    private OrderService orderService;
 
     @GetMapping("/admin/addProduct")
     public String ShowAddProduct(Model model)
@@ -101,7 +88,7 @@ public class ProductController {
         }
         else if (findUser.getRole().equals("ADMIN"))
         {
-            return "redirect:/admin/allProductsAdmin";
+            return "redirect:/admin/adminPanel";
         }
         else if(findUser.getRole().equals("USER")) {
             {
@@ -156,5 +143,18 @@ public class ProductController {
         System.out.println("\nObject - PAST" + product);
         productService.productSave(product);
         return "redirect:/admin/allProductsAdmin";
+    }
+
+    @GetMapping("/admin/adminPanel")
+    public String showPanel(Model model)
+    {
+        return "/adminPanel";
+    }
+
+    @GetMapping("/admin/allOrdersAdmin")
+    public String showAllOrders(Model model)
+    {   List<Order> orders = orderService.findAllUserOrders();
+        model.addAttribute("orders", orders);
+        return "/allOrdersAdmin";
     }
 }
