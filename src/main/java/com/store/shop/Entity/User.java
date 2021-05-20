@@ -1,21 +1,27 @@
 package com.store.shop.Entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    private String Type;
-    private String usrename;
-    private String Email;
+    @Column
+    private String firstName;
+    @Column
+    private String lastName;
+    @Column
+    private String email;
+    @Column
     private String Mobile;
+    @Column
     private String password;
+    @Column
+    private String role;
+    @Column
+    private String tgName;
 
 
     public Integer getId() {
@@ -26,59 +32,40 @@ public class User {
 
     }
 
-    public User(Integer id, String Type, String usrename, String password,String Email,String Mobile)
-    {
-        super();
-        this.id = id;
-        this.Type = Type;
-        this.usrename = usrename;
-        this.password = password;
-        this.Email=Email;
-        this.Mobile=Mobile;
+    public String getFirstName() {
+        return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-
-    public String getType() {
-        return Type;
+    public String getEmail() {
+        return email;
     }
 
-
-    public void setType(String type) {
-        Type = type;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
-
-    public String getUsrename() {
-        return usrename;
-    }
-
-
-    public void setUsrename(String usrename) {
-        this.usrename = usrename;
-    }
-
 
     public String getPassword() {
         return password;
     }
 
-
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-
-    public void setEmail(String email) {
-        Email = email;
+            this.password = password;
     }
 
     public String getMobile() {
@@ -89,15 +76,33 @@ public class User {
         Mobile = mobile;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getTgName() {
+        return tgName;
+    }
+
+    public void setTgName(String tgName) {
+        this.tgName = tgName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", Type='" + Type + '\'' +
-                ", usrename='" + usrename + '\'' +
-                ", Email='" + Email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", Mobile='" + Mobile + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", tgName='" + tgName + '\'' +
                 '}';
     }
 }

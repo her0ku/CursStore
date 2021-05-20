@@ -1,26 +1,38 @@
 package com.store.shop.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Order {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    private String name;
+    @Column
+    private String userName;
+    @Column
+    private String mail;
+    @Column
     private String itemName;
+    @Column
     private Integer price;
+    @Column
+    private Integer count;
+    @Column
+    private String tgName;
+    @Column
+    private String statusOrder;
 
     public Order() {
     }
 
-    public Order(String name, String itemName, Integer price) {
-        this.name = name;
+    public Order(String userName, String itemName, Integer price, Integer count, String tgName, String statusOrder, String mail) {
+        this.userName = userName;
         this.itemName = itemName;
         this.price = price;
+        this.count = count;
+        this.tgName = tgName;
+        this.statusOrder = statusOrder;
+        this.mail = mail;
     }
 
     public Integer getId() {
@@ -31,12 +43,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getItemName() {
@@ -55,13 +67,49 @@ public class Order {
         this.price = price;
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getTgName() {
+        return tgName;
+    }
+
+    public void setTgName(String tgName) {
+        this.tgName = tgName;
+    }
+
+    public String getStatusOrder() {
+        return statusOrder;
+    }
+
+    public void setStatusOrder(String statusOrder) {
+        this.statusOrder = statusOrder;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
+                ", mail='" + mail + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
+                ", count=" + count +
+                ", tgName='" + tgName + '\'' +
+                ", statusOrder='" + statusOrder + '\'' +
                 '}';
     }
 }

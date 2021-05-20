@@ -1,11 +1,11 @@
 package com.store.shop.Controller;
 
-import com.store.shop.Entity.Payment;
 import com.store.shop.Entity.Product;
 import com.store.shop.Entity.User;
+import com.store.shop.Repository.AppUserService;
 import com.store.shop.Repository.ProductService;
-import com.store.shop.Repository.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,9 @@ import java.util.List;
 @Controller
 public class UserController {
 
+
     @Autowired
-    private UserService userService;
+    private AppUserService appUserService;
 
     @Autowired
     private ProductService productService;
@@ -31,27 +32,28 @@ public class UserController {
     @PostMapping("/signUp")
     public String addUser(Model model, @ModelAttribute User user)
     {
-            userService.addUser(user);
+            appUserService.signUpUser(user);
             List<Product> products = productService.showAllProducts();
             model.addAttribute("products", products);
             return "allProducts";
     }
 
     @GetMapping("/login")
-    public String signIn (Model model)
+    public String login(Model model)
     {
         model.addAttribute("user",new User());
         return "Login";
     }
 
     @PostMapping("/login")
-    public String signIn (Model model, @ModelAttribute User u)
+    public String login(@ModelAttribute User user)
     {
-        User user = userService.findUserByUsrename(u.getUsrename());
-        if(user != null){
+        UserDetails userMail = appUserService.loadUserByUsername(user.getEmail());
+        User findUser = appUserService.findUserName(user.getEmail());
+        System.out.println(findUser.getRole());
+        if(userMail != null && findUser != null){
             return "redirect:/allProducts";
-        }
-        else
+        } else
             return "Login";
     }
 }

@@ -5,6 +5,8 @@ import com.store.shop.Entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImplement implements OrderService{
     @Autowired
@@ -13,4 +15,10 @@ public class OrderServiceImplement implements OrderService{
     public void saveOrder(Order order) {
         orderDAO.save(order);
     }
+
+    @Override
+    public List<Order> findAll(String mail) {
+        return orderDAO.findAllByMail(mail);
+    }
+
 }

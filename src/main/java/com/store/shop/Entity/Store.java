@@ -1,10 +1,7 @@
 package com.store.shop.Entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Store {
@@ -12,8 +9,11 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column
     private String location;
+    @Column
     private String name;
+    @Column
     private String type;
 
     public Integer getId() {

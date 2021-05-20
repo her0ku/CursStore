@@ -13,7 +13,7 @@
 <div align="center">
     <h1 class="section-title st-mdb">Продукция</h1>
     <br>
-    <a href="/addProduct">
+    <a href="/admin/addProduct">
         <input type="button" value="Добавить Товар" class="btn btn-primary btn-lg">
     </a>
     <br/><br/>
@@ -35,10 +35,10 @@
         <td th:text="${product.category}"></td>
         <td th:text="${product.Location}"></td>
         <td th:text="${product.amout}"></td>
-         <td><a th:href="@{'/edit/' + ${product.id}}">
+         <td><a th:href="@{'/admin/edit/' + ${product.id}}">
              <input type="button" value="Редактировать" class="btn btn-outline-primary">
          </a></td>
-         <td><a th:href="@{'/delete/' + ${product.id}}">
+         <td><a th:href="@{'/admin/delete/' + ${product.id}}">
              <input type="button" value="Удалить" class="btn btn-outline-danger">
          </a></td>
     </tr>

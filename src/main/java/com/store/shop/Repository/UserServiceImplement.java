@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImplement implements UserService{
+public class UserServiceImplement implements UserService {
 
     @Autowired
     private UserDAO userDAO;
@@ -17,7 +17,9 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
-    public User findUserByUsrename(String name) {
-        return userDAO.findUserByUsrename(name);
+    public User findUserbyPass(String name, String password) {
+        return userDAO.findUserByEmailAndPassword(name, password);
     }
+
+
 }

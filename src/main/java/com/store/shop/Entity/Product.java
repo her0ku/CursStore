@@ -10,31 +10,34 @@ public class Product
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String category;
+    @Column
     private Integer price;
+    @Column
     private String Location;
+    @Column
     private Integer amout;
+    @Column
     private String annotation;
     @Column(name = "image")
     private String image;
-    private Integer deleted;
 
-
-    public Product() {
-    }
-    public Product(Integer id,String name, String category, Integer price, String location, Integer amout, String annotation, String image) {
-        super();
-        this.id = id;
+    public Product(String name, String category, Integer price, String location, Integer amout, String annotation, String image) {
         this.name = name;
         this.category = category;
         this.price = price;
-        this.Location = location;
-        this.deleted=0;
+        Location = location;
         this.amout = amout;
         this.annotation = annotation;
         this.image = image;
     }
+
+    public Product() {
+    }
+
 
     public Integer getId() {
         return id;
@@ -50,12 +53,6 @@ public class Product
     }
     public String getCategory() {
         return category;
-    }
-    public Integer getDeleted() {
-        return deleted;
-    }
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
     }
     public void setCategory(String category) {
         this.category = category;
@@ -110,7 +107,6 @@ public class Product
                 ", amout=" + amout +
                 ", annotation='" + annotation + '\'' +
                 ", image=" + image +
-                ", deleted=" + deleted +
                 '}';
     }
 }
