@@ -95,15 +95,16 @@ public class ProductController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         User findUser = appUserService.findUserName(name);
-        if (findUser.getRole().equals("ADMIN"))
+        if(name.equals("anonymousUser")){
+            name = "";
+            model.addAttribute("name", name);
+        }
+        else if (findUser.getRole().equals("ADMIN"))
         {
             return "redirect:/admin/allProductsAdmin";
         }
         else if(findUser.getRole().equals("USER")) {
-            if (name.equals("anonymousUser")) {
-                name = "";
-                model.addAttribute("name", name);
-            } else {
+            {
                 User user = appUserService.findUserName(name);
                 model.addAttribute("name", "Здравствуй, " + user.getFirstName());
             }

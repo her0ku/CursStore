@@ -51,7 +51,7 @@ public class UserController {
         UserDetails userMail = appUserService.loadUserByUsername(user.getEmail());
         User findUser = appUserService.findUserName(user.getEmail());
         System.out.println(findUser.getRole());
-        if(userMail != null && findUser != null){
+        if(userMail != null){
             return "redirect:/allProducts";
         } else
             return "Login";

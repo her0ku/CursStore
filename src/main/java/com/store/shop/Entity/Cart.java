@@ -1,15 +1,12 @@
 package com.store.shop.Entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class Order {
+public class Cart {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @Column
-    private String userName;
     @Column
     private String mail;
     @Column
@@ -19,21 +16,36 @@ public class Order {
     @Column
     private Integer count;
     @Column
-    private String tgName;
-    @Column
-    private String statusOrder;
+    private String category;
+    @Column(name = "image")
+    private String image;
 
-    public Order() {
+    public Cart() {
     }
 
-    public Order(String userName, String itemName, Integer price, Integer count, String tgName, String statusOrder, String mail) {
-        this.userName = userName;
+    public Cart(String mail, String itemName, Integer price, Integer count, String category, String image) {
+        this.mail = mail;
         this.itemName = itemName;
         this.price = price;
         this.count = count;
-        this.tgName = tgName;
-        this.statusOrder = statusOrder;
-        this.mail = mail;
+        this.category = category;
+        this.image = image;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Integer getId() {
@@ -44,12 +56,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getItemName() {
@@ -76,41 +88,16 @@ public class Order {
         this.count = count;
     }
 
-    public String getTgName() {
-        return tgName;
-    }
-
-    public void setTgName(String tgName) {
-        this.tgName = tgName;
-    }
-
-    public String getStatusOrder() {
-        return statusOrder;
-    }
-
-    public void setStatusOrder(String statusOrder) {
-        this.statusOrder = statusOrder;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     @Override
     public String toString() {
-        return "Order{" +
+        return "Cart{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
                 ", mail='" + mail + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
                 ", count=" + count +
-                ", tgName='" + tgName + '\'' +
-                ", statusOrder='" + statusOrder + '\'' +
+                ", category='" + category + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

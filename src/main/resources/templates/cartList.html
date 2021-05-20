@@ -48,10 +48,10 @@
             <td data-th="Product">
               <div class="row">
                 <div class="col-md-3 text-left">
-                  <img th:src="'/images/' + ${product.name} + '/' + ${product.image}" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                  <img th:src="'/images/' + ${product.itemName} + '/' + ${product.image}" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow ">
                 </div>
                 <div class="col-md-9 text-left mt-sm-2">
-                  <h4 th:text="${product.name}" name="name"  th:field="*{name}"></h4>
+                  <h4 th:text="${product.itemName}" name="name"  th:field="*{name}"></h4>
                   <p class="font-weight-light" th:text="${product.category}"></p>
                 </div>
               </div>
@@ -59,12 +59,9 @@
             <td data-th="Price" th:text="${product.price} + ' ₽'" name="price"  th:field="*{price}"></td>
             <td class="actions" data-th="">
               <div class="text-right">
-                <button class="btn btn-white border-secondary bg-white btn-md mb-2">
+                <a class="btn btn-white border-secondary bg-white btn-md mb-2" th:href="@{'/deleteFromCart/' + ${product.id}}">
                   <i class="fas fa-trash"></i>
-                </button>
-              </div>
-              <div class="col-sm-6 order-md-2 text-right">
-                <a th:href="@{'/addFromCart/' + ${product.id}}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Оформить</a>
+                </a>
               </div>
             </td>
           </tr>
@@ -73,6 +70,9 @@
         <div class="float-right text-right">
           <h4>ИТОГ:</h4>
           <h1 th:text="${sum} + ' ₽'"></h1>
+          <div class="col-sm-6 order-md-2 text-right">
+            <a th:href="@{/saveOrder}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Оформить</a>
+          </div>
         </div>
       </div>
     </div>

@@ -38,6 +38,9 @@ public class AppUserService implements UserDetailsService, AppUserImplement {
 
     @Override
     public User findUserName(String email) {
+        if(userDAO.findByEmail(email) == null){
+            return new User();
+        }
         return userDAO.findByEmail(email);
     }
 }
