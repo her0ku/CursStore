@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppUserService implements UserDetailsService, AppUserImplement {
 
@@ -42,5 +44,10 @@ public class AppUserService implements UserDetailsService, AppUserImplement {
             return new User();
         }
         return userDAO.findByEmail(email);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userDAO.findAll();
     }
 }

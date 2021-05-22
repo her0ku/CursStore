@@ -9,4 +9,5 @@ public interface CartService {
     List<Cart> findAllByMail(String mail);
     void deleteFromCart(Integer id);
     void deleteFromCartByMail(String name);
+    List<Cart> findAll();
 }

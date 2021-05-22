@@ -32,4 +32,9 @@ public class CartServiceImplement implements CartService{
     public void deleteFromCartByMail(String name) {
         cartDAO.deleteByMail(name);
     }
+
+    @Override
+    public List<Cart> findAll() {
+        return cartDAO.findAll();
+    }
 }

@@ -20,6 +20,4 @@ public class UserServiceImplement implements UserService {
     public User findUserbyPass(String name, String password) {
         return userDAO.findUserByEmailAndPassword(name, password);
     }
-
-
 }

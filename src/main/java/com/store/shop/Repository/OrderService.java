@@ -8,6 +8,7 @@ import java.util.List;
 @Transactional
 public interface OrderService {
     void saveOrder(Order order, String name);
+    void saveOrder(Order order);
     List<Order> findAll(String mail);
-    List<Order> findAllUserOrders();
+    Order findOrderMail(String mail);
 }

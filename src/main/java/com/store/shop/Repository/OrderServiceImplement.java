@@ -25,6 +25,10 @@ public class OrderServiceImplement implements OrderService{
         orderDAO.save(order);
         cartDAO.deleteByMail(mail);
     }
+    @Override
+    public void saveOrder(Order order) {
+        orderDAO.save(order);
+    }
 
     @Override
     public List<Order> findAll(String mail) {
@@ -32,8 +36,8 @@ public class OrderServiceImplement implements OrderService{
     }
 
     @Override
-    public List<Order> findAllUserOrders() {
-        return orderDAO.findAll();
+    public Order findOrderMail(String mail) {
+        return orderDAO.getFirstByMail(mail);
     }
 
 }

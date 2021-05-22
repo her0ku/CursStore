@@ -12,68 +12,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.io.*;
 import java.util.List;
 
 @Controller
 public class ProductController {
 
-
-    private String uploadPath = System.getProperty("user.home") + "\\images";
-
     @Autowired
     private ProductService productService;
     @Autowired
     private AppUserService appUserService;
-
-    @Autowired
-    private OrderService orderService;
-
-    @GetMapping("/admin/addProduct")
-    public String ShowAddProduct(Model model)
-    {
-        model.addAttribute("product", new Product());
-        return "addProduct";
-    }
-
-    @PostMapping("/admin/addProduct")
-    public String AddProduct(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
-                             @RequestParam("price") Integer price, @RequestParam("category") String category,
-                             @RequestParam("annotation") String annotation, @RequestParam("Location") String location,
-                             @RequestParam("amout") Integer amout) throws IOException {
-        Product product = new Product();
-        product.setName(name);
-        product.setPrice(price);
-        product.setAnnotation(annotation);
-        product.setAmout(amout);
-        product.setCategory(category);
-        product.setLocation(location);
-        if(!file.isEmpty() && file.getSize() != 0)
-        {
-            File uploadDir = new File(uploadPath + "\\" + product.getName() + "\\");
-            if(!uploadDir.exists()){
-                uploadDir.mkdirs();
-            }
-            String result = file.getOriginalFilename();
-            file.transferTo(new File(uploadDir + "/" + result));
-            product.setImage(result);
-        } else {
-            product.setImage(product.getImage());
-        }
-        productService.productSave(product);
-        return "redirect:/admin/allProductsAdmin";
-    }
-
-    @GetMapping("/admin/allProductsAdmin")
-    public String showAll(Model model)
-    {
-        List<Product> products = productService.showAllProducts();
-        model.addAttribute("products", products);
-        return "allProductsAdmin";
-    }
 
     @GetMapping("/allProducts")
     public String showAllUserProducts(Model model)
@@ -99,62 +47,5 @@ public class ProductController {
             return "allProducts";
         }
         return "/allProducts";
-    }
-
-    @RequestMapping("/admin/delete/{id}")
-    public String deleteProduct(@PathVariable(name = "id") Integer id){
-        productService.deleteProductById(id);
-        return "redirect:/admin/allProductsAdmin";
-    }
-
-    @GetMapping("/admin/edit/{id}")
-    public ModelAndView editItem(@PathVariable(name = "id") Integer id) {
-        ModelAndView mav = new ModelAndView("showProductCard");
-        Product product = productService.findProductById(id);
-        mav.addObject("product", product);
-        return mav;
-    }
-
-    @PostMapping("/admin/edit/{id}")
-    public String AddProduct(@PathVariable("id") Integer id, @RequestParam("name") String name,
-            @RequestParam("image") MultipartFile file, @RequestParam("price") Integer price, @RequestParam("category") String category,
-                             @RequestParam("annotation") String annotation, @RequestParam("Location") String location,
-                             @RequestParam("amout") Integer amout) throws IOException {
-        System.out.println("ID - " + id);
-        Product product = productService.findProductById(id);
-
-        System.out.println("\nObject - now" + product);
-        if(!file.isEmpty())
-        {
-            File uploadDir = new File(uploadPath + "\\" + product.getName() + "\\");
-            if(!uploadDir.exists()){
-                uploadDir.mkdirs();
-            }
-            String result = file.getOriginalFilename();
-            file.transferTo(new File(uploadDir + "/" + result));
-            product.setImage(result);
-        }
-        product.setName(name);
-        product.setPrice(price);
-        product.setAnnotation(annotation);
-        product.setAmout(amout);
-        product.setCategory(category);
-        product.setLocation(location);
-        System.out.println("\nObject - PAST" + product);
-        productService.productSave(product);
-        return "redirect:/admin/allProductsAdmin";
-    }
-
-    @GetMapping("/admin/adminPanel")
-    public String showPanel(Model model)
-    {
-        return "/adminPanel";
-    }
-
-    @GetMapping("/admin/allOrdersAdmin")
-    public String showAllOrders(Model model)
-    {   List<Order> orders = orderService.findAllUserOrders();
-        model.addAttribute("orders", orders);
-        return "/allOrdersAdmin";
     }
 }

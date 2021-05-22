@@ -2,6 +2,7 @@ package com.store.shop.Service;
 
 
 import com.store.shop.Entity.Cart;
+import com.store.shop.Entity.Order;
 
 import java.util.List;
 
@@ -38,5 +39,13 @@ public class CountService {
             itemCount++;
         }
         return new CountService(sum,itemCount);
+    }
+    public static Integer countPrice(List<Order> orderList)
+    {
+        sum = 0;
+        for(Order o : orderList){
+            sum += o.getPrice();
+        }
+        return sum;
     }
 }

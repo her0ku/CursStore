@@ -24,14 +24,10 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @Autowired
-    private AppUserService appUserService;
 
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private OrderService orderService;
 
     @RequestMapping("/addToCart/{id}")
     public String addToCart(@PathVariable Integer id, Model model)
@@ -54,25 +50,6 @@ public class CartController {
         return "cartList";
     }
 
-    @RequestMapping("/saveOrder")
-    public String orderList()
-    {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        User user = appUserService.findUserName(mail);
-        List<Cart> carts = cartService.findAllByMail(mail);
-        for(Cart c : carts){
-            Order order = new Order();
-            order.setItemName(c.getItemName());
-            order.setUserName(user.getFirstName());
-            order.setPrice(c.getPrice());
-            order.setTgName(user.getTgName());
-            order.setMail(c.getMail());
-            order.setStatusOrder("Обрабатывается");
-            orderService.saveOrder(order, mail);
-        }
-        return "redirect:/allProducts";
-    }
 
     @RequestMapping("/deleteFromCart/{id}")
     public String deleteFromCart(@PathVariable("id") Integer id, Model model)
