@@ -17,21 +17,22 @@
         <h2>Регистрация</h2>
         <div class="form-group">
             <div class="row">
-                <div class="col"><input type="text" class="form-control" name="name" placeholder="Ivan" th:field="*{firstName}"></div>
-                <div class="col"><input type="text" class="form-control" name="tgName" placeholder="Irony" th:field="*{lastName}"></div>
+                <div class="col"><input type="text" class="form-control" name="name" placeholder="Ivan" th:field="*{firstName}" required></div>
+                <div class="col"><input type="text" class="form-control" name="tgName" placeholder="Irony" th:field="*{lastName}" required></div>
             </div>
         </div>
         <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="exmple@mail.ru" th:field="*{email}">
+            <input type="email" class="form-control" name="email" placeholder="exmple@mail.ru" th:field="*{email}" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="phone" placeholder="+79264411068" th:field="*{Mobile}">
+            <input type="tel" class="form-control" name="phone" maxlength="12" placeholder="+79264411068" th:field="*{Mobile}" required
+                   value="+7(___)___-__-__" pattern="^((\+7|7|8)+([0-9]){10})$">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" name="tgName" placeholder="@her0ku" th:field="*{tgName}">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" th:field="*{password}">
+            <input type="password" class="form-control" name="password" placeholder="Password" th:field="*{password}" required>
         </div>
     <div class="form-group">
         <button type="submit" class="btn btn-lg btn-primary btn-block">Зарегестрироваться</button>

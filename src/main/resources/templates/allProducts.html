@@ -23,10 +23,21 @@
                 <li class="nav-item"><a class="nav-link" href="#!">О нас</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">Контакты</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item">
-                    <a class="nav-link" th:text="${name}"></a>
-                </li>
+            <div th:with="anonStatus = ${user.anonymStatus}">
+                <ul class="nav navbar-nav navbar-right" th:if="${anonStatus}">
+                    <li class="nav-item">
+                     <a class="nav-link" th:href="@{/login}">Вход</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" th:unless="${anonStatus}">
+                    <li class="nav-item">
+                        <a class="nav-link" th:text="${name}"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Выход</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>

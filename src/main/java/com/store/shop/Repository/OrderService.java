@@ -11,4 +11,5 @@ public interface OrderService {
     void saveOrder(Order order);
     List<Order> findAll(String mail);
     Order findOrderMail(String mail);
+    void deleteAllOrdersByMail(String mail);
 }

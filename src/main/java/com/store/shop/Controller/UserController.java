@@ -5,12 +5,15 @@ import com.store.shop.Entity.User;
 import com.store.shop.Repository.AppUserService;
 import com.store.shop.Repository.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
@@ -30,12 +33,10 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public String addUser(Model model, @ModelAttribute User user)
+    public String addUser(@ModelAttribute User user)
     {
             appUserService.signUpUser(user);
-            List<Product> products = productService.showAllProducts();
-            model.addAttribute("products", products);
-            return "allProducts";
+            return "redirect:/Login";
     }
 
     @GetMapping("/login")
@@ -45,15 +46,12 @@ public class UserController {
         return "Login";
     }
 
-    @PostMapping("/login")
-    public String login(@ModelAttribute User user)
-    {
-        UserDetails userMail = appUserService.loadUserByUsername(user.getEmail());
-        User findUser = appUserService.findUserName(user.getEmail());
-        System.out.println(findUser.getRole());
-        if(userMail != null){
-            return "redirect:/allProducts";
-        } else
-            return "Login";
+    @GetMapping("/logout")
+    public String fetchSignoutSite(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/Login";
     }
 }

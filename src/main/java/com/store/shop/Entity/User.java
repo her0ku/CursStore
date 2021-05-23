@@ -22,6 +22,7 @@ public class User {
     private String role;
     @Column
     private String tgName;
+    private boolean anonymStatus;
 
 
     public Integer getId() {
@@ -30,6 +31,17 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(String firstName, String lastName, String email, String mobile, String password, String role, String tgName, boolean anonymStatus) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        Mobile = mobile;
+        this.password = password;
+        this.role = role;
+        this.tgName = tgName;
+        this.anonymStatus = anonymStatus;
     }
 
     public String getFirstName() {
@@ -92,6 +104,14 @@ public class User {
         this.tgName = tgName;
     }
 
+    public boolean isAnonymStatus() {
+        return anonymStatus;
+    }
+
+    public void setAnonymStatus(boolean anonymStatus) {
+        this.anonymStatus = anonymStatus;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -103,6 +123,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", tgName='" + tgName + '\'' +
+                ", anonymStatus=" + anonymStatus +
                 '}';
     }
 }

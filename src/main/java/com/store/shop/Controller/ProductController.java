@@ -32,16 +32,21 @@ public class ProductController {
         User findUser = appUserService.findUserName(name);
         if(name.equals("anonymousUser")){
             name = "";
+            findUser.setAnonymStatus(true);
             model.addAttribute("name", name);
+            model.addAttribute("user", findUser);
         }
         else if (findUser.getRole().equals("ADMIN"))
         {
+            findUser.setAnonymStatus(false);
             return "redirect:/admin/adminPanel";
         }
         else if(findUser.getRole().equals("USER")) {
             {
                 User user = appUserService.findUserName(name);
+                findUser.setAnonymStatus(false);
                 model.addAttribute("name", "Здравствуй, " + user.getFirstName());
+                model.addAttribute("user", user);
             }
             model.addAttribute("products", products);
             return "allProducts";

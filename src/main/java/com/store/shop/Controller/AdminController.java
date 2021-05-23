@@ -11,6 +11,8 @@ import com.store.shop.Repository.OrderService;
 import com.store.shop.Repository.ProductService;
 import com.store.shop.Service.CountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,12 @@ public class AdminController {
     @GetMapping("/admin/addProduct")
     public String ShowAddProduct(Model model)
     {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         model.addAttribute("product", new Product());
         return "addProduct";
     }
@@ -76,6 +84,12 @@ public class AdminController {
     @GetMapping("/admin/allProductsAdmin")
     public String showAll(Model model)
     {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         List<Product> products = productService.showAllProducts();
         model.addAttribute("products", products);
         return "allProductsAdmin";
@@ -83,6 +97,12 @@ public class AdminController {
 
     @RequestMapping("/admin/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") Integer id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         productService.deleteProductById(id);
         return "redirect:/admin/allProductsAdmin";
     }
@@ -127,6 +147,12 @@ public class AdminController {
 
     @GetMapping("/admin/editStatus/{email}/{statusCode}")
     public String editStatus(@PathVariable("email") String mail, @PathVariable("statusCode") String code){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         System.out.println(mail);
         System.out.println(code);
         List<Order> orders = orderService.findAll(mail);
@@ -140,10 +166,16 @@ public class AdminController {
     @GetMapping("/admin/editStatus/{email}")
     public String editStatusOrder(@PathVariable("email") String email, Model model){
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         List<String> statusCodes = new ArrayList<>();
         statusCodes.add("Обрабатывается");
         statusCodes.add("Укомплектован");
-        statusCodes.add("Ждёт в пункте выдаче");
+        statusCodes.add("Ждёт в пункте выдачи");
         statusCodes.add("Отмена");
 
         List<Order> orders = orderService.findAll(email);
@@ -154,15 +186,40 @@ public class AdminController {
         return "/statusOrderAdmin";
     }
 
+    @RequestMapping("/admin/deleteOrder/{email}")
+    public String deleteAllOrders(@PathVariable("email") String email)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
+        orderService.deleteAllOrdersByMail(email);
+        return "redirect:/admin/allOrdersAdmin";
+    }
+
     @GetMapping("/admin/adminPanel")
     public String showPanel(Model model)
     {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         return "/adminPanel";
     }
 
     @GetMapping("/admin/allOrdersAdmin")
     public String showAllOrders(Model model)
     {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        User findUser = appUserService.findUserName(name);
+        if(findUser.getRole().equals("USER")){
+            return "redirect:/allProducts";
+        }
         List<User> users = appUserService.findAllUsers();
         List<appOrder> orders = new ArrayList<>();
         for(User u : users){
@@ -173,8 +230,10 @@ public class AdminController {
                 orderApp.setEmail(u.getEmail());
                 orderApp.setMobile(u.getMobile());
                 orderStatus = orderService.findOrderMail(u.getEmail());
-                orderApp.setStatusOrder(orderStatus.getStatusOrder());
-                orders.add(orderApp);
+                if(orderStatus != null) {
+                     orderApp.setStatusOrder(orderStatus.getStatusOrder());
+                     orders.add(orderApp);
+                }
             }
         }
         model.addAttribute("users", orders);

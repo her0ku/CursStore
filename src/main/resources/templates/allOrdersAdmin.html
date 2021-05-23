@@ -34,6 +34,11 @@
                     <input type="button" value="Перейти" class="btn btn-primary btn-lg" id="submitChange">
                 </a>
             </td>
+            <td>
+                <a th:href="@{'/admin/deleteOrder/' + ${user.email}}">
+                    <input type="button" value="Удалить" class="btn btn-danger">
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>

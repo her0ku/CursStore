@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
 import javax.sql.DataSource;
@@ -39,9 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable().formLogin().loginPage("/login").loginProcessingUrl("/login").permitAll()
                 .usernameParameter("email").passwordParameter("password")
-                .defaultSuccessUrl("/allProducts")
+                .defaultSuccessUrl("/allProducts", true)
                 .and()
-                .httpBasic();
+                .httpBasic().and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 
     @Override

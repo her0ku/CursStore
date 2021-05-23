@@ -9,5 +9,6 @@ import java.util.List;
 @Transactional
 public interface OrderDAO extends JpaRepository<Order, Integer> {
     List<Order> findAllByMail(String mail);
-    Order getFirstByMail(String mail);
+    Order findDistinctFirstByMail(String mail);
+    void deleteByMail(String mail);
 }

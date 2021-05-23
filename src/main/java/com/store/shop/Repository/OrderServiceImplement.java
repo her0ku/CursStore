@@ -37,7 +37,12 @@ public class OrderServiceImplement implements OrderService{
 
     @Override
     public Order findOrderMail(String mail) {
-        return orderDAO.getFirstByMail(mail);
+        return orderDAO.findDistinctFirstByMail(mail);
+    }
+
+    @Override
+    public void deleteAllOrdersByMail(String mail) {
+        orderDAO.deleteByMail(mail);
     }
 
 }
