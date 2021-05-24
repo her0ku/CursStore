@@ -1,6 +1,5 @@
 package com.store.shop.Controller;
 
-import com.store.shop.Entity.Product;
 import com.store.shop.Entity.User;
 import com.store.shop.Repository.AppUserService;
 import com.store.shop.Repository.ProductService;
@@ -22,8 +21,6 @@ public class UserController {
     @Autowired
     private AppUserService appUserService;
 
-    @Autowired
-    private ProductService productService;
 
     @GetMapping("/signUp")
     public String addUser(Model model)

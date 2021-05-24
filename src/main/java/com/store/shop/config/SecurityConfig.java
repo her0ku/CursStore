@@ -34,9 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     protected void configure(HttpSecurity http) throws Exception {
+        String[] staticResources  =  {
+                "/css/**",
+                "/images/**",
+                "/fonts/**",
+                "/scripts/**",
+        };
         http
                 .authorizeRequests()
-                .antMatchers( "/signUp", "/allProducts").permitAll()
+                .antMatchers(staticResources).permitAll()
+                .antMatchers("/contacts","/about" ,"/signUp", "/allProducts").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable().formLogin().loginPage("/login").loginProcessingUrl("/login").permitAll()
                 .usernameParameter("email").passwordParameter("password")
