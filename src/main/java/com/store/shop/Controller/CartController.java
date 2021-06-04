@@ -50,6 +50,18 @@ public class CartController {
         return "cartList";
     }
 
+    @RequestMapping("/userCart")
+    public String viewCart(Model model)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        List<Cart> carts = cartService.findAllByMail(name);
+        CountService countService = CountService.count(carts);
+        model.addAttribute("cart",carts);
+        model.addAttribute("sum", countService.getSum());
+        model.addAttribute("counter", countService.getItemCount());
+        return "cartList";
+    }
 
     @RequestMapping("/deleteFromCart/{id}")
     public String deleteFromCart(@PathVariable("id") Integer id, Model model)

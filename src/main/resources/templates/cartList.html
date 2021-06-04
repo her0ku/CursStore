@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="#!">My super store</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -72,6 +72,9 @@
           <h1 th:text="${sum} + ' ₽'"></h1>
           <div class="col-sm-6 order-md-2 text-right">
             <a th:href="@{/saveOrder}" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Оформить</a>
+          </div>
+          <div class="col-sm-6 order-md-2 text-right">
+            <a href="https://t.me/mewShop_bot" class="btn btn-primary mb-4 btn-lg pl-5 pr-5">Перейти в телеграм бота</a>
           </div>
         </div>
       </div>
